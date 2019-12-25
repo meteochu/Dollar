@@ -9,8 +9,7 @@
 import Foundation
 
 struct CurrencyResult: Decodable {
-	
-	static let formatter: DateFormatter = {
+	private static let formatter: DateFormatter = {
 		let formatter = DateFormatter()
 		formatter.dateStyle = .medium
 		formatter.timeStyle = .none
@@ -21,13 +20,11 @@ struct CurrencyResult: Decodable {
 	let date = Date()
 	
 	var dateString: String {
-		return CurrencyResult.formatter.string(from: date)
+		CurrencyResult.formatter.string(from: date)
 	}
-	
 }
 
 struct CurrencyResponse: Decodable {
-	
 	let exchange: CurrencyResult
 	
 	enum CodingKeys: String, CodingKey {
@@ -38,5 +35,4 @@ struct CurrencyResponse: Decodable {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
 		self.exchange = try values.decode(CurrencyResult.self, forKey: .exchange)
 	}
-	
 }
